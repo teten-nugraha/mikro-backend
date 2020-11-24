@@ -27,6 +27,7 @@ func Init() *echo.Echo {
 
 	// login route
 	routes.GET("/generate-hash/:password", authAPI.GenerateHashPassword)
+	routes.GET("/login", authAPI.CheckLogin)
 
 	return routes
 }
