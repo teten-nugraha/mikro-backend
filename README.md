@@ -7,6 +7,14 @@ Mikro adalah sebuah layanan pendampingan dan pelatihan untuk UMKM di Indonesia y
 
 
 
+## Prerequisite
+
+- Golang minimal V1.15 https://golang.org/
+
+- MySQL Database https://www.mysql.com/downloads/
+
+  
+
 ## Technology Stack	
 
 - Golang V1.12 or up
