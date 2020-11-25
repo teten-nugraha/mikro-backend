@@ -1,12 +1,18 @@
 # Mikro 	
+
+
 ## About
 
 Mikro adalah sebuah layanan pendampingan dan pelatihan untuk UMKM di Indonesia yang menjembatani Super Admin, Coach dan UMKM untuk berinteraksi dalam aplikasi tersebut. Repo ini adalah khusus backend.
+
+
 
 ## Technology Stack	
 
 - Golang V1.12 or up
 - MySQL Database
+
+
 
 ## Library
 
@@ -19,6 +25,28 @@ Mikro adalah sebuah layanan pendampingan dan pelatihan untuk UMKM di Indonesia y
 - GoSwagger (TODO)
 - Mockery (TODO)
 - Testify (TODO)
+
+
+
+## Software Architecture
+
+Pada repository ini, dibangun menggunakan Hexagonal / Clean Architecture dimana setiap layer di bagi-bagi menjadi beberapa layer inti yaitu :
+
+- domain
+
+- repository
+
+- service
+
+- api
+
+  
+
+## Unit Test
+
+TODO
+
+
 
 ## Installation
 
