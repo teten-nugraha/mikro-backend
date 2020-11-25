@@ -17,6 +17,10 @@ func ProviderUserService(u respository.UserRepository) UserService {
 	}
 }
 
+func (u *UserService) FindById(id uint) domain.User {
+	return u.UserRepository.FindById(id)
+}
+
 func (u *UserService) FindByUsername(username string) domain.User {
 	return u.UserRepository.FindByUsername(username)
 }
