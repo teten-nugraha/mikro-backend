@@ -22,6 +22,6 @@ func (u *UserAPI) FindById(c echo.Context) error {
 
 	user := u.UserService.FindById(uint(idInt))
 
-	return c.JSON(http.StatusOK, user)
+	return SuccessResponse(c, http.StatusOK, user)
 
 }

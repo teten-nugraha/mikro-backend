@@ -1,12 +1,10 @@
 package api
 
 import (
-	"github.com/dgrijalva/jwt-go"
 	"github.com/labstack/echo"
 	"github.com/teten-nugraha/mikro-backend/helpers"
 	"github.com/teten-nugraha/mikro-backend/service"
 	"net/http"
-	"time"
 )
 
 type AuthAPI struct {
@@ -24,7 +22,7 @@ func (p *AuthAPI)GenerateHashPassword(c echo.Context) error {
 
 	hash, _ := helpers.HashPassword(password)
 
-	return c.JSON(http.StatusOK, hash)
+	return SuccessResponse(c, http.StatusOK, hash)
 
 }
 
@@ -34,30 +32,22 @@ func (p *AuthAPI) CheckLogin(c echo.Context) error {
 
 	res, err := p.UserService.CheckLogin(username, password)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{
-			"messages": err.Error(),
-		})
+
+		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
 
 	if !res {
-		return echo.ErrUnauthorized
+		return ErrorResponse(c, http.StatusUnauthorized, "Unauthorized")
 	}
 
-	token := jwt.New(jwt.SigningMethodHS256)
+	t, err := p.UserService.GenerateToken(username)
 
-	claims := token.Claims.(jwt.MapClaims)
-	claims["username"] = username
-	claims["level"] = "application"
-	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
-
-	t, err := token.SignedString([]byte("secret"))
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{
-			"messages": err.Error(),
-		})
+		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
 
-	return c.JSON(http.StatusOK, map[string]string{
+	return SuccessResponse(c, http.StatusOK, map[string]string{
 		"token":t,
 	})
+
 }
