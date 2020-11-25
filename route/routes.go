@@ -20,7 +20,9 @@ func Init() *echo.Echo {
 
 	routes := echo.New()
 
-	routes.Use(middleware.Logger())
+	routes.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
+		Format: "method=${method}, time:${time_unix}, uri=${uri}, status=${status}, error=${error}, latency_human=${latency}, bytes_in=${bytes_in}, bytes_out=${bytes_out} \n",
+	}))
 
 	routes.GET("/", func(e echo.Context) error {
 		return e.String(http.StatusOK, "Hello from mikro backend API")
