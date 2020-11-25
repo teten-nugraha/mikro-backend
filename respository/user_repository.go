@@ -6,24 +6,24 @@ import (
 )
 
 type UserRepository struct {
-	DB *gorm.DB
+	db *gorm.DB
 }
 
 func ProviderUserRepository(DB *gorm.DB) UserRepository {
-	return UserRepository{DB: DB}
+	return UserRepository{db: DB}
 }
 
 func (u *UserRepository) FindById(id uint) domain.User {
 	var user domain.User
 
-	u.DB.First(&user, id)
+	u.db.First(&user, id)
 
 	return user
 }
 
 func (u *UserRepository) FindByUsername(username string) domain.User {
 	var user domain.User
-	u.DB.Where("username = ?", username).Find(&user)
+	u.db.Where("username = ?", username).Find(&user)
 
 	return user
 }
