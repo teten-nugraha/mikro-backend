@@ -20,3 +20,10 @@ func InitAuthAPI(db *gorm.DB) api.AuthAPI {
 	authAPI := api.ProvideAuthAPI(userService)
 	return authAPI
 }
+
+func InitUserAPI(db *gorm.DB) api.UserAPI {
+	userRepository := respository.ProviderUserRepository(db)
+	userService := service.ProviderUserService(userRepository)
+	userAPI := api.ProviderUserAPI(userService)
+	return userAPI
+}

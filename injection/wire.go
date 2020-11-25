@@ -13,3 +13,9 @@ func initAuthAPI(db *gorm.DB) api.AuthAPI {
 
 	return api.AuthAPI{}
 }
+
+func initUserAPI(db *gorm.DB) api.UserAPI {
+	wire.Build(respository.ProviderUserRepository, service.ProviderUserService, api.ProviderUserAPI)
+
+	return api.UserAPI{}
+}
