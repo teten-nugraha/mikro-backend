@@ -13,9 +13,10 @@ import (
 func Init() *echo.Echo {
 
 	db := db2.InitDB()
-	defer db.Close()
+	//defer db.Close()
 
 	authAPI := injection.InitAuthAPI(db)
+	userAPI := injection.InitUserAPI(db)
 
 	routes := echo.New()
 
@@ -24,6 +25,9 @@ func Init() *echo.Echo {
 	routes.GET("/", func(e echo.Context) error {
 		return e.String(http.StatusOK, "Hello from mikro backend API")
 	})
+
+	// User Route
+	routes.GET("/users/:id", userAPI.FindById)
 
 	// login route
 	routes.GET("/generate-hash/:password", authAPI.GenerateHashPassword)
