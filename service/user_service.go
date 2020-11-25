@@ -1,8 +1,8 @@
 package service
 
 import (
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
+	"github.com/sirupsen/logrus"
 	"github.com/teten-nugraha/mikro-backend/domain"
 	"github.com/teten-nugraha/mikro-backend/helpers"
 	"github.com/teten-nugraha/mikro-backend/respository"
@@ -33,7 +33,7 @@ func (u *UserService) CheckLogin(username, password string) (bool, error) {
 
 	match, err := helpers.CheckPasswordHash(password, user.Password)
 	if !match {
-		fmt.Println("hash and password doesnt match")
+		logrus.Warn("Hash and Password doesnt match")
 		return false, err
 	}
 
