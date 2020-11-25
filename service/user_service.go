@@ -2,9 +2,11 @@ package service
 
 import (
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/teten-nugraha/mikro-backend/domain"
 	"github.com/teten-nugraha/mikro-backend/helpers"
 	"github.com/teten-nugraha/mikro-backend/respository"
+	"time"
 )
 
 type UserService struct {
@@ -36,4 +38,19 @@ func (u *UserService) CheckLogin(username, password string) (bool, error) {
 	}
 
 	return true,nil
+}
+
+func (u *UserService) GenerateToken(username string) (string, error) {
+
+	token := jwt.New(jwt.SigningMethodHS256)
+
+	claims := token.Claims.(jwt.MapClaims)
+	claims["username"] = username
+	claims["level"] = "application"
+	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+
+	t, err := token.SignedString([]byte("secret"))
+
+	return t, err
+
 }
