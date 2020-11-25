@@ -34,12 +34,15 @@ Mikro adalah sebuah layanan pendampingan dan pelatihan untuk UMKM di Indonesia y
 Pada repository ini, dibangun menggunakan Hexagonal / Clean Architecture dimana setiap layer di bagi-bagi menjadi beberapa layer inti yaitu :
 
 - domain
-
 - repository
-
 - service
-
 - api
+
+Untuk lebih jelasnya mengenai Clean Architecture bisa dibaca pada artikel ini mengenai kenapa kita harus menggunakan pendekatan ini :
+
+- https://threedots.tech/post/introducing-clean-architecture/
+
+- https://medium.com/swlh/clean-architecture-java-spring-fea51e26e00
 
   
 
@@ -73,14 +76,28 @@ go run main.go
 
 Lakukan langkah-langkah berikut untuk dapat berkontrobusi dalam repo ini :
 
-- Fork repository ini
-- Kerjakan fitur yang akan dikontribusikan dalam repository anda hasil dari fork diatas
-- Merge ke master repository Anda
-- Buka repo ini https://github.com/teten-nugraha/mikro-backend.git kemudian create pull request
+- Clone repository ini
+
+- Kerjakan fitur yang akan dikontribusikan dalam repository ini
+
+- buatlah branch baru mengenai apa yang mau anda kerjakan dengan prefix **feature/** , misalkan anda akan mengerjakan fitur Forgot Password maka kerjakan di branch **feature/forgot-password**
+
+- Push latest code ke branch tersebut
+
+- Buka Repository ini di github kemudian create new **Pull Request **, target branch **main**, dan assign ke saya
+
+  
 
 
 
 ## Community Contributions Guide
 
 Untuk lebih lanjut silahkan hubungi teten.nugraha18@gmail.com
+
+
+
+## Contributor
+
+- Teten Nugraha
+- Rifki Rahadian
 
