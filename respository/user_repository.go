@@ -5,6 +5,19 @@ import (
 	"github.com/teten-nugraha/mikro-backend/domain"
 )
 
+type UserRepositoryContract interface {
+
+	/**
+	 * Mencari User by ID equal
+	 */
+    FindById(id uint) domain.User
+
+    /*
+     * Mencari User by username equal
+     */
+    FindByUsername(username string) domain.User
+}
+
 type UserRepository struct {
 	DB *gorm.DB
 }
