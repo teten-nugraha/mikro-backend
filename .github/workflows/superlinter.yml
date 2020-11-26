@@ -4,7 +4,7 @@ name: Super-Linter
 on:
   push:
     branches:
-      - main
+      - deployment
 
 jobs:
   # Set the job key. The key is displayed as the job name
