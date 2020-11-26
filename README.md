@@ -25,7 +25,7 @@ Mikro adalah sebuah layanan pendampingan dan pelatihan untuk UMKM di Indonesia y
 ## Library
 
 - Echo Labstack HTTP Client
-- GORM
+- GORM (Database ORM)
 - Google Wire (Dependency Injection)
 - JWT-GO
 - Viper Config (TODO)
@@ -33,7 +33,7 @@ Mikro adalah sebuah layanan pendampingan dan pelatihan untuk UMKM di Indonesia y
 - GoSwagger (TODO)
 - Mockery (TODO)
 - Testify (TODO)
-- LogRush (TODO)
+- LogRush
 
 
 
