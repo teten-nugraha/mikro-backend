@@ -33,4 +33,5 @@ jobs:
           go mod download
           go build .
           ls -ll
-          ssh app@188.166.230.130 "touch test_dari_github.json"
+          ssh-copy-id -i ${{ secrets.DO_KEY }} app@188.166.230.130
+          touch test.json
