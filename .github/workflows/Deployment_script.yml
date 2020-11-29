@@ -34,4 +34,4 @@ jobs:
           go build .
           ls -ll
           ssh-copy-id -i ${{ secrets.DO_KEY }} app@188.166.230.130
-          touch test.json
+          ls -ll
