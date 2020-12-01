@@ -17,3 +17,5 @@
 .idea
 .env
 production.env
+
+mikro-backend.log
