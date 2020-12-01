@@ -47,9 +47,7 @@ func (p *AuthAPI) CheckLogin(c echo.Context) error {
 		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
 
-	return SuccessResponse(c, http.StatusOK, map[string]string{
-		"token":t,
-	})
+	return SuccessResponse(c, http.StatusOK, t)
 
 }
 
