@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/labstack/echo"
+	"github.com/teten-nugraha/mikro-backend/dto"
 	"github.com/teten-nugraha/mikro-backend/helpers"
 	"github.com/teten-nugraha/mikro-backend/service"
 	"net/http"
@@ -46,8 +47,29 @@ func (p *AuthAPI) CheckLogin(c echo.Context) error {
 		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
 
-	return SuccessResponse(c, http.StatusOK, map[string]string{
-		"token":t,
-	})
+	return SuccessResponse(c, http.StatusOK, t)
+
+}
+
+func (p *AuthAPI) SignUp(c echo.Context) error {
+
+	username:= c.FormValue("username")
+	password:= c.FormValue("password")
+	fullname:= c.FormValue("fullname")
+	email:= c.FormValue("email")
+	phone:= c.FormValue("phone")
+
+	signupDto := dto.SignupDTO{
+		Username: username,
+		Password: password,
+		Fullname: fullname,
+		Email: email,
+		Phone: phone,
+	}
+
+	userDto := p.UserService.SignUp(signupDto)
+
+	return SuccessResponse(c, http.StatusOK, userDto)
+
 
 }
