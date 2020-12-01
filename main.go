@@ -14,7 +14,5 @@ func main() {
 
 	route := route2.Init(arg)
 
-
-
 	route.Logger.Fatal(route.Start(":7979"))
 }

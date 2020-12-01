@@ -34,6 +34,7 @@ func Init(arg string) *echo.Echo {
 	// login route
 	routes.GET("/generate-hash/:password", authAPI.GenerateHashPassword)
 	routes.GET("/login", authAPI.CheckLogin)
+	routes.POST("/signup", authAPI.SignUp)
 
 	return routes
 }

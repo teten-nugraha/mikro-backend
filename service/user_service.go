@@ -7,6 +7,7 @@ import (
 	"github.com/teten-nugraha/mikro-backend/helpers"
 	"github.com/teten-nugraha/mikro-backend/mapper"
 	"github.com/teten-nugraha/mikro-backend/respository"
+	"github.com/teten-nugraha/mikro-backend/util"
 	"time"
 )
 
@@ -31,6 +32,11 @@ type UserServiceContract interface {
 	 * Method untuk generate token sesudah user berhasil melakukan login
 	 */
 	GenerateToken(username string) (string, error)
+
+	/**
+	* Sign Up User
+	 */
+	SignUp(signupDto dto.SignupDTO) dto.UserDTO
 }
 
 type UserService struct {
@@ -76,5 +82,17 @@ func (u *UserService) GenerateToken(username string) (string, error) {
 	t, err := token.SignedString([]byte("secret"))
 
 	return t, err
+
+}
+
+func (u *UserService) SignUp(signupDto dto.SignupDTO) dto.UserDTO {
+
+	hash, _ := helpers.HashPassword(signupDto.Password)
+
+	signupDto.Password = hash
+	signupDto.Role = util.MIKRO_USER
+	signupDto.IsActive = true
+
+	return mapper.ToUserDTO(u.UserRepository.SaveOrUpdate(signupDto))
 
 }
