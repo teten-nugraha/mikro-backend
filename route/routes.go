@@ -10,9 +10,9 @@ import (
 
 
 
-func Init() *echo.Echo {
+func Init(arg string) *echo.Echo {
 
-	db := db2.InitDB()
+	db := db2.InitDB(arg)
 	//defer db.Close()
 
 	authAPI := injection.InitAuthAPI(db)
