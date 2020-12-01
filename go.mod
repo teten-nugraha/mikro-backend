@@ -6,6 +6,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/go-playground/validator/v10 v10.4.1
+	github.com/golang-migrate/migrate v3.5.4+incompatible // indirect
 	github.com/google/wire v0.4.0
 	github.com/jinzhu/gorm v1.9.10
 	github.com/joho/godotenv v1.3.0
