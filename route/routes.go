@@ -5,7 +5,6 @@ import (
 	"github.com/labstack/echo/middleware"
 	db2 "github.com/teten-nugraha/mikro-backend/db"
 	"github.com/teten-nugraha/mikro-backend/injection"
-	"net/http"
 )
 
 
@@ -15,26 +14,38 @@ func Init(arg string) *echo.Echo {
 	db := db2.InitDB(arg)
 	//defer db.Close()
 
-	authAPI := injection.InitAuthAPI(db)
+
 	userAPI := injection.InitUserAPI(db)
+	authAPI := injection.InitAuthAPI(db)
 
 	routes := echo.New()
 
+	// set logger
 	routes.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: "method=${method}, time:${time_unix}, uri=${uri}, status=${status}, error=${error}, latency_human=${latency}, bytes_in=${bytes_in}, bytes_out=${bytes_out} \n",
 	}))
 
-	routes.GET("/", func(e echo.Context) error {
-		return e.String(http.StatusOK, "Hello from mikro backend API")
-	})
+	// Gzip Compression
+	routes.Use(middleware.GzipWithConfig(middleware.GzipConfig{
+		Level: 5,
+	}))
+
+	// Allow CORS
+	routes.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
+	}))
 
 	// User Route
 	routes.GET("/users/:id", userAPI.FindById)
 
-	// login route
-	routes.GET("/generate-hash/:password", authAPI.GenerateHashPassword)
-	routes.GET("/login", authAPI.CheckLogin)
-	routes.POST("/signup", authAPI.SignUp)
+	// auth route
+	auth := routes.Group("/auth")
+	{
+		auth.GET("/generate-hash/:password", authAPI.GenerateHashPassword)
+		auth.GET("/login", authAPI.CheckLogin)
+		auth.POST("/signup", authAPI.SignUp)
+	}
 
 	return routes
 }

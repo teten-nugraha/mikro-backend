@@ -32,7 +32,7 @@ func ToUserEntityFromSignupDto(dto dto.SignupDTO) domain.User {
 		Role: dto.Role,
 		IsActive: dto.IsActive,
 		Email: dto.Email,
-		Phone: dto.Email,
+		Phone: dto.Phone,
 	}
 }
 

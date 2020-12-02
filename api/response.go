@@ -20,7 +20,8 @@ func SuccessResponse(c echo.Context, statusCode int, data interface{}) error{
 		Data: data,
 	}
 	c.Response().WriteHeader(statusCode)
-	return c.JSON(statusCode, resp)
+	c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
+	return c.JSONPretty(statusCode, resp, "  ")
 }
 
 func ErrorResponse(c echo.Context, errorCode int, messages interface{}) error{
@@ -29,5 +30,6 @@ func ErrorResponse(c echo.Context, errorCode int, messages interface{}) error{
 		Messages: messages,
 	}
 	c.Response().WriteHeader(errorCode)
-	return c.JSON(errorCode, resp)
+	c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSONCharsetUTF8)
+	return c.JSONPretty(errorCode, resp, "  ")
 }

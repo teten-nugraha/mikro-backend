@@ -75,7 +75,7 @@ go mod download
 Untuk sementara buat sebuah database dengan nama **mikro_backend** dan sesuaikan **username** dan **password** dengan MySQL Local kalian di file **db/db_config.go** . kemudian running aplikasi.
 
 ```
-go run main.go
+go run main.go development
 ```
 
 

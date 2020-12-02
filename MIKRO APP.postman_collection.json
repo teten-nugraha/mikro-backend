@@ -18,22 +18,22 @@
 							"formdata": [
 								{
 									"key": "username",
-									"value": "una",
+									"value": "gorm",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "test",
+									"value": "gorm",
 									"type": "text"
 								},
 								{
 									"key": "fullname",
-									"value": "Yasna Almahyra",
+									"value": "Go ORM",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "una@mail.com",
+									"value": "gorm@mail.com",
 									"type": "text"
 								},
 								{
@@ -44,12 +44,13 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:7979/signup",
+							"raw": "localhost:7979/auth/signup",
 							"host": [
 								"localhost"
 							],
 							"port": "7979",
 							"path": [
+								"auth",
 								"signup"
 							]
 						}
@@ -58,11 +59,37 @@
 				},
 				{
 					"name": "LOGIN",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "gorm",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "gorm",
+									"type": "text"
+								}
+							]
+						},
 						"url": {
-							"raw": ""
+							"raw": "localhost:7979/auth/login",
+							"host": [
+								"localhost"
+							],
+							"port": "7979",
+							"path": [
+								"auth",
+								"login"
+							]
 						}
 					},
 					"response": []
@@ -91,13 +118,15 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:7979/login",
+							"raw": "localhost:7979/auth/generate-hash/coba",
 							"host": [
 								"localhost"
 							],
 							"port": "7979",
 							"path": [
-								"login"
+								"auth",
+								"generate-hash",
+								"coba"
 							]
 						}
 					},
