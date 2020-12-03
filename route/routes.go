@@ -9,7 +9,7 @@ import (
 
 
 
-func Init(arg string) *echo.Echo {
+func Init(arg []string) *echo.Echo {
 
 	db := db2.InitDB(arg)
 	//defer db.Close()
