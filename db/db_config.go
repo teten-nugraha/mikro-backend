@@ -13,24 +13,9 @@ import (
 	"github.com/teten-nugraha/mikro-backend/domain"
 )
 
-func InitDB(arg string) *gorm.DB {
+func InitDB(args []string) *gorm.DB {
 
-	if(strings.Compare(util.PRODUCTION, arg) == 0) {
-		err := godotenv.Load("production.env")
-		if err != nil {
-			log.Fatal("Error loading production.env file")
-		}
-		logrus.Info("Mikro Backend using Production DB Profile")
-	}else{
-		err := godotenv.Load(".env")
-		if err != nil {
-			log.Fatal("Error loading .env file")
-		}
-		logrus.Info("Mikro Backend using Development DB Profile")
-	}
-
-	err := godotenv.Load("prod.env")
-
+	processENV(args)
 
 	dbUsername := os.Getenv("DB_USERNAME")
 	dbPassword := os.Getenv("DB_PASSWORD")
@@ -43,7 +28,31 @@ func InitDB(arg string) *gorm.DB {
 		panic(err)
 	}
 
+	// Migrate if there are new file in domain
 	db.AutoMigrate(&domain.User{})
+	db.AutoMigrate(&domain.Kategori{})
 
 	return db
+}
+
+func processENV(args []string) {
+
+	if(len(args) >= 1) {
+
+		env := args[0]
+		if(strings.Compare(util.PRODUCTION, env) == 0) {
+			err := godotenv.Load("production.env")
+			if err != nil {
+				log.Fatal("Error loading production.env file")
+			}
+			logrus.Info("Mikro Backend using Production DB Profile")
+		}else if(strings.Compare(util.DEVELOPMENT, env) == 0) {
+			err := godotenv.Load(".env")
+			if err != nil {
+				log.Fatal("Error loading .env file")
+			}
+			logrus.Info("Mikro Backend using Development DB Profile")
+		}
+	}
+
 }
