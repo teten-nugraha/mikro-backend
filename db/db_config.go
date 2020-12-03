@@ -2,6 +2,7 @@ package db
 
 import (
 	"github.com/sirupsen/logrus"
+	"github.com/teten-nugraha/mikro-backend/domain"
 	"github.com/teten-nugraha/mikro-backend/util"
 	"log"
 	"os"
@@ -10,7 +11,6 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/joho/godotenv"
-	"github.com/teten-nugraha/mikro-backend/domain"
 )
 
 func InitDB(args []string) *gorm.DB {
@@ -23,16 +23,23 @@ func InitDB(args []string) *gorm.DB {
 	dbPort := os.Getenv("DB_PORT")
 	dbName := os.Getenv("DB_DATABASE")
 
-	db, err := gorm.Open("mysql", dbUsername+":"+dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbName)
+	db, err := gorm.Open("mysql", dbUsername+":"+dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"?parseTime=true")
 	if err != nil {
 		panic(err)
 	}
 
+
+	doMigrateDDL(db)
+
+	return db
+}
+
+func doMigrateDDL(db *gorm.DB) {
+
 	// Migrate if there are new file in domain
 	db.AutoMigrate(&domain.User{})
 	db.AutoMigrate(&domain.Kategori{})
-
-	return db
+	//db.AutoMigrate(&domain.Merchant{})
 }
 
 func processENV(args []string) {
