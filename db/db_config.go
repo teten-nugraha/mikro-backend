@@ -29,7 +29,7 @@ func InitDB(args []string) *gorm.DB {
 	}
 
 
-	doMigrateDDL(db)
+	//doMigrateDDL(db)
 
 	return db
 }
@@ -39,7 +39,7 @@ func doMigrateDDL(db *gorm.DB) {
 	// Migrate if there are new file in domain
 	db.AutoMigrate(&domain.User{})
 	db.AutoMigrate(&domain.Kategori{})
-	//db.AutoMigrate(&domain.Merchant{})
+	db.AutoMigrate(&domain.Merchant{})
 }
 
 func processENV(args []string) {
