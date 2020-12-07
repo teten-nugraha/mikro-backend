@@ -77,7 +77,7 @@ Untuk sementara buat sebuah database dengan nama **mikro_backend** dan sesuaikan
 Karena di repo ini menggunakan golang db migrations maka sebelum running aplikasi, haruslah migrate file-file sql terlebi dahulu dengan cara
 
 ```
-migrate -path db/migrations -database "mysql://<username>:<password>@localhost:3306/mikro_backend?sslmode=disable" -verbose up
+migrate -path db/migrations -database "mysql://root:root@tcp(localhost:3306)/mikro_backend" -verbose up
 ```
 
 
