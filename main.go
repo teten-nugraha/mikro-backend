@@ -1,10 +1,19 @@
 package main
 
-import route2 "github.com/teten-nugraha/mikro-backend/route"
+import (
+	"flag"
+	"github.com/teten-nugraha/mikro-backend/logging"
+	route2 "github.com/teten-nugraha/mikro-backend/route"
+)
 
 func main() {
 
-	route := route2.Init()
+	flag.Parse()
+	arg := flag.Args()
+
+	logging.InitializeLogging("mikro-backend.log")
+
+	route := route2.Init(arg)
 
 	route.Logger.Fatal(route.Start(":7979"))
 }

@@ -25,7 +25,7 @@ Mikro adalah sebuah layanan pendampingan dan pelatihan untuk UMKM di Indonesia y
 ## Library
 
 - Echo Labstack HTTP Client
-- GORM (Database ORM)
+- GORM
 - Google Wire (Dependency Injection)
 - JWT-GO
 - Viper Config (TODO)
@@ -75,7 +75,7 @@ go mod download
 Untuk sementara buat sebuah database dengan nama **mikro_backend** dan sesuaikan **username** dan **password** dengan MySQL Local kalian di file **db/db_config.go** . kemudian running aplikasi.
 
 ```
-go run main.go
+go run main.go development
 ```
 
 
