@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/sirupsen/logrus"
+	"github.com/teten-nugraha/mikro-backend/domain"
 	"github.com/teten-nugraha/mikro-backend/util"
 
 	"github.com/jinzhu/gorm"
@@ -28,7 +29,7 @@ func InitDB(args []string) *gorm.DB {
 		panic(err)
 	}
 
-	doMigrateDDL(db)
+	//doMigrateDDL(db)
 
 	return db
 }
@@ -36,9 +37,9 @@ func InitDB(args []string) *gorm.DB {
 func doMigrateDDL(db *gorm.DB) {
 
 	// Migrate if there are new file in domain
-	// db.AutoMigrate(&domain.User{})
-	// db.AutoMigrate(&domain.Kategori{})
-	//db.AutoMigrate(&domain.Merchant{})
+	db.AutoMigrate(&domain.User{})
+	db.AutoMigrate(&domain.Kategori{})
+	db.AutoMigrate(&domain.Merchant{})
 }
 
 func processENV(args []string) {

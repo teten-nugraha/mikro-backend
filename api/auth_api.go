@@ -29,6 +29,11 @@ func (p *AuthAPI) GenerateHashPassword(c echo.Context) error {
 }
 
 func (p *AuthAPI) SignUp(c echo.Context) error {
+	form := new(dto.SignupDTO)
+	c.Bind(form)
+	if err := c.Validate(form); err != nil {
+		return err
+	}
 
 	username := c.FormValue("username")
 	password := c.FormValue("password")

@@ -4,21 +4,31 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 	db2 "github.com/teten-nugraha/mikro-backend/db"
+	"github.com/teten-nugraha/mikro-backend/helpers"
 	"github.com/teten-nugraha/mikro-backend/injection"
+	"gopkg.in/go-playground/validator.v9"
 )
 
+type CustomValidator struct {
+	validator *validator.Validate
+}
 
+func (cv *CustomValidator) Validate(i interface{}) error {
+	return cv.validator.Struct(i)
+}
 
 func Init(arg []string) *echo.Echo {
 
 	db := db2.InitDB(arg)
 	//defer db.Close()
 
-
 	userAPI := injection.InitUserAPI(db)
 	authAPI := injection.InitAuthAPI(db)
 
 	routes := echo.New()
+
+	routes.Validator = &CustomValidator{validator: validator.New()}
+	routes.HTTPErrorHandler = helpers.ValidationResponse
 
 	// set logger
 	routes.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
