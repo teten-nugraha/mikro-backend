@@ -35,18 +35,12 @@ func (p *AuthAPI) SignUp(c echo.Context) error {
 		return err
 	}
 
-	username := c.FormValue("username")
-	password := c.FormValue("password")
-	fullname := c.FormValue("fullname")
-	email := c.FormValue("email")
-	phone := c.FormValue("phone")
-
 	signupDto := dto.SignupDTO{
-		Username: username,
-		Password: password,
-		Fullname: fullname,
-		Email:    email,
-		Phone:    phone,
+		Username: form.Username,
+		Password: form.Password,
+		Fullname: form.Fullname,
+		Email:    form.Email,
+		Phone:    form.Phone,
 	}
 
 	userDto, err := p.UserService.SignUp(signupDto)
