@@ -12,17 +12,17 @@ type UserRepositoryContract interface {
 	/**
 	 * Mencari User by ID equal
 	 */
-    FindById(id uint) domain.User
+	FindById(id uint) domain.User
 
-    /*
-     * Mencari User by username equal
-     */
-    FindByUsername(username string) domain.User
+	/*
+	 * Mencari User by username equal
+	 */
+	FindByUsername(username string) domain.User
 
-    /**
-    * save or update user
-     */
-    SaveOrUpdate(userDto dto.SignupDTO) domain.User
+	/**
+	 * save or update user
+	 */
+	SaveOrUpdate(userDto dto.SignupDTO) domain.User
 }
 
 type UserRepository struct {
@@ -48,11 +48,13 @@ func (u *UserRepository) FindByUsername(username string) domain.User {
 	return user
 }
 
-func (u *UserRepository) SaveOrUpdate(signupDto dto.SignupDTO) domain.User {
+func (u *UserRepository) SaveOrUpdate(signupDto dto.SignupDTO) (domain.User, error) {
 
 	user := mapper.ToUserEntityFromSignupDto(signupDto)
 
-	u.DB.Create(&user)
+	if err := u.DB.Create(&user).Error; err != nil {
+		return user, err
+	}
 
-	return user
+	return user, nil
 }

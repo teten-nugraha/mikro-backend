@@ -1,6 +1,8 @@
 package service
 
 import (
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/sirupsen/logrus"
 	"github.com/teten-nugraha/mikro-backend/dto"
@@ -8,7 +10,6 @@ import (
 	"github.com/teten-nugraha/mikro-backend/mapper"
 	"github.com/teten-nugraha/mikro-backend/respository"
 	"github.com/teten-nugraha/mikro-backend/util"
-	"time"
 )
 
 type UserServiceContract interface {
@@ -67,7 +68,7 @@ func (u *UserService) CheckLogin(username, password string) (bool, error) {
 		return false, err
 	}
 
-	return true,nil
+	return true, nil
 }
 
 func (u *UserService) GenerateToken(username string) (string, error) {
@@ -85,7 +86,7 @@ func (u *UserService) GenerateToken(username string) (string, error) {
 
 }
 
-func (u *UserService) SignUp(signupDto dto.SignupDTO) dto.UserDTO {
+func (u *UserService) SignUp(signupDto dto.SignupDTO) (dto.UserDTO, error) {
 
 	hash, _ := helpers.HashPassword(signupDto.Password)
 
@@ -93,6 +94,10 @@ func (u *UserService) SignUp(signupDto dto.SignupDTO) dto.UserDTO {
 	signupDto.Role = util.MIKRO_USER
 	signupDto.IsActive = true
 
-	return mapper.ToUserDTO(u.UserRepository.SaveOrUpdate(signupDto))
+	user, err := u.UserRepository.SaveOrUpdate(signupDto)
+	if err != nil {
+		return mapper.ToUserDTO(user), err
+	}
 
+	return mapper.ToUserDTO(user), nil
 }
