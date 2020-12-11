@@ -2,13 +2,13 @@
 
 CREATE TABLE `users` (
   `id` varbinary(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
+  `username` varchar(255) UNIQUE NOT NULL,
   `password` varchar(255) DEFAULT NULL,
   `fullname` varchar(255) DEFAULT NULL,
   `role` varchar(20) DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  `phone` varchar(255) DEFAULT NULL,
+  `email` varchar(255) UNIQUE DEFAULT NULL,
+  `phone` varchar(255) UNIQUE DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,

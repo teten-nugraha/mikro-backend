@@ -1,12 +1,13 @@
 package db
 
 import (
-	"github.com/sirupsen/logrus"
-	"github.com/teten-nugraha/mikro-backend/domain"
-	"github.com/teten-nugraha/mikro-backend/util"
 	"log"
 	"os"
 	"strings"
+
+	"github.com/sirupsen/logrus"
+	"github.com/teten-nugraha/mikro-backend/domain"
+	"github.com/teten-nugraha/mikro-backend/util"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -28,7 +29,6 @@ func InitDB(args []string) *gorm.DB {
 		panic(err)
 	}
 
-
 	//doMigrateDDL(db)
 
 	return db
@@ -44,16 +44,16 @@ func doMigrateDDL(db *gorm.DB) {
 
 func processENV(args []string) {
 
-	if(len(args) >= 1) {
+	if len(args) >= 1 {
 
 		env := args[0]
-		if(strings.Compare(util.PRODUCTION, env) == 0) {
+		if strings.Compare(util.PRODUCTION, env) == 0 {
 			err := godotenv.Load("production.env")
 			if err != nil {
 				log.Fatal("Error loading production.env file")
 			}
 			logrus.Info("Mikro Backend using Production DB Profile")
-		}else if(strings.Compare(util.DEVELOPMENT, env) == 0) {
+		} else if strings.Compare(util.DEVELOPMENT, env) == 0 {
 			err := godotenv.Load(".env")
 			if err != nil {
 				log.Fatal("Error loading .env file")

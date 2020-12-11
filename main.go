@@ -2,12 +2,12 @@ package main
 
 import (
 	"flag"
+
 	"github.com/teten-nugraha/mikro-backend/logging"
 	route2 "github.com/teten-nugraha/mikro-backend/route"
 )
 
 func main() {
-
 	flag.Parse()
 	arg := flag.Args()
 
