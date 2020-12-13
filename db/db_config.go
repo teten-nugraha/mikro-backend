@@ -24,6 +24,12 @@ func InitDB(args []string) *gorm.DB {
 	dbPort := os.Getenv("DB_PORT")
 	dbName := os.Getenv("DB_DATABASE")
 
+	logrus.Info("DB_USERNAME : " + dbUsername)
+	logrus.Info("DB_PASSWORD : " + dbPassword)
+	logrus.Info("DB_HOST : " + dbHost)
+	logrus.Info("DB_PORT : " + dbPort)
+	logrus.Info("DB_DATABASE : " + dbName)
+
 	db, err := gorm.Open("mysql", dbUsername+":"+dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"?parseTime=true")
 	if err != nil {
 		panic(err)
