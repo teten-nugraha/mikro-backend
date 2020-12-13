@@ -24,6 +24,12 @@ func InitDB(args []string) *gorm.DB {
 	dbPort := os.Getenv("DB_PORT")
 	dbName := os.Getenv("DB_DATABASE")
 
+	logrus.Info("DB_USERNAME : " + dbUsername)
+	logrus.Info("DB_PASSWORD : " + dbPassword)
+	logrus.Info("DB_HOST : " + dbHost)
+	logrus.Info("DB_PORT : " + dbPort)
+	logrus.Info("DB_DATABASE : " + dbName)
+
 	db, err := gorm.Open("mysql", dbUsername+":"+dbPassword+"@tcp("+dbHost+":"+dbPort+")/"+dbName+"?parseTime=true")
 	if err != nil {
 		panic(err)
@@ -54,15 +60,14 @@ func processENV(args []string) {
 			}
 			logrus.Info("Mikro Backend using Development DB Profile")
 		}
-	}
-	// else {
-	// 	// ready for production
+	} else {
+		// ready for production
 
-	// 	err := godotenv.Load("production.env")
-	// 	if err != nil {
-	// 		log.Fatal("Error loading production.env file")
-	// 	}
-	// 	logrus.Info("Mikro Backend using Production DB Profile")
-	// }
+		err := godotenv.Load("production.env")
+		if err != nil {
+			log.Fatal("Error loading production.env file")
+		}
+		logrus.Info("Mikro Backend using Production DB Profile")
+	}
 
 }
