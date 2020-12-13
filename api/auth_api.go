@@ -35,26 +35,29 @@ func (p *AuthAPI) SignUp(c echo.Context) error {
 		return err
 	}
 
-	username := c.FormValue("username")
-	password := c.FormValue("password")
-	fullname := c.FormValue("fullname")
-	email := c.FormValue("email")
-	phone := c.FormValue("phone")
-
 	signupDto := dto.SignupDTO{
-		Username: username,
-		Password: password,
-		Fullname: fullname,
-		Email:    email,
-		Phone:    phone,
+		Username: form.Username,
+		Password: form.Password,
+		Fullname: form.Fullname,
+		Email:    form.Email,
+		Phone:    form.Phone,
 	}
 
-	userDto := p.UserService.SignUp(signupDto)
+	userDto, err := p.UserService.SignUp(signupDto)
+	if err != nil {
+		return ErrorResponse(c, http.StatusOK, err.Error())
+	}
 
 	return SuccessResponse(c, http.StatusOK, userDto)
 }
 
 func (p *AuthAPI) CheckLogin(c echo.Context) error {
+	form := new(dto.LoginDTO)
+	c.Bind(form)
+	if err := c.Validate(form); err != nil {
+		return err
+	}
+
 	username := c.FormValue("username")
 	password := c.FormValue("password")
 

@@ -53,7 +53,7 @@ func Init(arg []string) *echo.Echo {
 	auth := routes.Group("/auth")
 	{
 		auth.GET("/generate-hash/:password", authAPI.GenerateHashPassword)
-		auth.GET("/login", authAPI.CheckLogin)
+		auth.POST("/login", authAPI.CheckLogin)
 		auth.POST("/signup", authAPI.SignUp)
 	}
 
