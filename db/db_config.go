@@ -60,14 +60,15 @@ func processENV(args []string) {
 			}
 			logrus.Info("Mikro Backend using Development DB Profile")
 		}
-	} else {
-		// ready for production
-
-		err := godotenv.Load("production.env")
-		if err != nil {
-			log.Fatal("Error loading production.env file")
-		}
-		logrus.Info("Mikro Backend using Production DB Profile")
 	}
+	// else {
+	// 	// ready for production
+
+	// 	err := godotenv.Load("production.env")
+	// 	if err != nil {
+	// 		log.Fatal("Error loading production.env file")
+	// 	}
+	// 	logrus.Info("Mikro Backend using Production DB Profile")
+	// }
 
 }
