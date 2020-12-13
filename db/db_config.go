@@ -53,13 +53,13 @@ func processENV(args []string) {
 				log.Fatal("Error loading production.env file")
 			}
 			logrus.Info("Mikro Backend using Production DB Profile")
-		} else if strings.Compare(util.DEVELOPMENT, env) == 0 {
-			err := godotenv.Load(".env")
-			if err != nil {
-				log.Fatal("Error loading .env file")
-			}
-			logrus.Info("Mikro Backend using Development DB Profile")
 		}
+	} else {
+		err := godotenv.Load(".env")
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+		logrus.Info("Mikro Backend using Development DB Profile")
 	}
 
 }
