@@ -42,8 +42,7 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           port: ${{ secrets.DEPLOY_PORT }}
           username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          passphrase: ""
+          password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
             pwd
             ls -ll
