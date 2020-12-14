@@ -34,7 +34,7 @@ jobs:
           go build .
           ls -ll
           
-      - name: ssh deploy to VM DO
+      - name: ssh deploy to VM DO 2
         uses: easingthemes/ssh-deploy@v2.1.4
         env:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
