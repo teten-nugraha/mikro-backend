@@ -19,3 +19,9 @@ func initUserAPI(db *gorm.DB) api.UserAPI {
 
 	return api.UserAPI{}
 }
+
+func initKategoriAPI(db *gorm.DB) api.KategoriAPI {
+	wire.Build(respository.ProviderKategoriRepository, service.ProviderKategoriService, api.ProviderKategoryAPI)
+
+	return api.KategoriAPI{}
+}

@@ -27,3 +27,10 @@ func InitUserAPI(db *gorm.DB) api.UserAPI {
 	userAPI := api.ProviderUserAPI(userService)
 	return userAPI
 }
+
+func InitKategoriAPI(db *gorm.DB) api.KategoriAPI {
+	kategoriRepository := respository.ProviderKategoriRepository(db)
+	kategoryService := service.ProviderKategoriService(kategoriRepository)
+	kategoriAPI := api.ProviderKategoryAPI(kategoryService)
+	return kategoriAPI
+}
