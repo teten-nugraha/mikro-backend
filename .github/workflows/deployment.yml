@@ -44,5 +44,11 @@ jobs:
           username: ${{ secrets.DEPLOY_USER }}
           password: ${{ secrets.DEPLOY_PASSWORD }}
           script: |
-            pwd
-            ls -ll
+            systemctl stop mikroapp-systemctl.service
+            cd /home/app/mikro-backend/
+            git pull origin main
+            go mod download
+            go build 
+            cp mikro-backend /home/app/mikro_app/
+            systemctl start mikroapp-systemctl.service
+            
