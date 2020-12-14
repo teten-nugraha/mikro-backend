@@ -24,7 +24,7 @@ func ProviderKategoriRepository(DB *gorm.DB) KategoriRepository {
 func (k *KategoriRepository) FindById(id string) domain.Kategori {
 	var kategori domain.Kategori
 
-	k.DB.First(&kategori, id)
+	k.DB.Where("id = ?", id).Find(&kategori)
 
 	return kategori
 }

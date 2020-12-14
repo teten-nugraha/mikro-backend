@@ -1,5 +1,5 @@
 package dto
 
 type KategoriDTO struct {
-	Kategori string `json:"kategori"`
+	Kategori string `json:"kategori" validate:"required"`
 }

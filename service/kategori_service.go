@@ -33,8 +33,8 @@ func (k *KategoryService) FindByNama(nama string) dto.KategoriDTO {
 
 func (k *KategoryService) SaveOrUpdate(dto dto.KategoriDTO) (dto.KategoriDTO, error) {
 
-	kategori, _ := k.KategoriRepository.SaveOrUpdate(dto)
+	kategori, err := k.KategoriRepository.SaveOrUpdate(dto)
 
-	return mapper.ToKategoriDTO(kategori), nil
+	return mapper.ToKategoriDTO(kategori), err
 
 }
