@@ -34,13 +34,12 @@ jobs:
           go build .
           ls -ll
           
-      - name: execute ssh command
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            whoami
-            ls -al
+      - name: ssh deploy to VM
+        uses: easingthemes/ssh-deploy@v2.1.4
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
+          REMOTE_HOST: ${{ secrets.DEPLOY_HOST }}
+          REMOTE_USER: ${{ secrets.DEPLOY_USER }}
+          REMOTE_PORT: ${{ secrets.DEPLOY_PORT }}
+          SOURCE: "dist/"
+          TARGET: ${{ secrets.DEPLOY_TARGET }}
