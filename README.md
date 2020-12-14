@@ -74,8 +74,18 @@ go mod download
 
 Untuk sementara buat sebuah database dengan nama **mikro_backend** dan sesuaikan **username** dan **password** dengan MySQL Local kalian di file **db/db_config.go** . kemudian running aplikasi.
 
+Karena di repo ini menggunakan golang db migrations maka sebelum running aplikasi, haruslah migrate file-file sql terlebi dahulu dengan cara
+
 ```
-go run main.go
+migrate -path db/migrations -database "mysql://root:root@tcp(localhost:3306)/mikro_backend" -verbose up
+```
+
+
+
+kemudian running sintak berikut
+
+```
+go run main.go development
 ```
 
 

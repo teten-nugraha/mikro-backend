@@ -1,13 +1,15 @@
 package service
 
 import (
+	"time"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/sirupsen/logrus"
 	"github.com/teten-nugraha/mikro-backend/dto"
 	"github.com/teten-nugraha/mikro-backend/helpers"
 	"github.com/teten-nugraha/mikro-backend/mapper"
 	"github.com/teten-nugraha/mikro-backend/respository"
-	"time"
+	"github.com/teten-nugraha/mikro-backend/util"
 )
 
 type UserServiceContract interface {
@@ -31,6 +33,11 @@ type UserServiceContract interface {
 	 * Method untuk generate token sesudah user berhasil melakukan login
 	 */
 	GenerateToken(username string) (string, error)
+
+	/**
+	* Sign Up User
+	 */
+	SignUp(signupDto dto.SignupDTO) dto.UserDTO
 }
 
 type UserService struct {
@@ -61,7 +68,7 @@ func (u *UserService) CheckLogin(username, password string) (bool, error) {
 		return false, err
 	}
 
-	return true,nil
+	return true, nil
 }
 
 func (u *UserService) GenerateToken(username string) (string, error) {
@@ -77,4 +84,20 @@ func (u *UserService) GenerateToken(username string) (string, error) {
 
 	return t, err
 
+}
+
+func (u *UserService) SignUp(signupDto dto.SignupDTO) (dto.UserDTO, error) {
+
+	hash, _ := helpers.HashPassword(signupDto.Password)
+
+	signupDto.Password = hash
+	signupDto.Role = util.MIKRO_USER
+	signupDto.IsActive = true
+
+	user, err := u.UserRepository.SaveOrUpdate(signupDto)
+	if err != nil {
+		return mapper.ToUserDTO(user), err
+	}
+
+	return mapper.ToUserDTO(user), nil
 }
