@@ -3,12 +3,12 @@ package route
 import (
 	"github.com/labstack/echo"
 	"github.com/teten-nugraha/mikro-backend/api"
-	"github.com/teten-nugraha/mikro-backend/middleware"
+	mdl "github.com/teten-nugraha/mikro-backend/middleware"
 )
 
 func AdminRoute(routes *echo.Echo, kategoriAPI api.KategoriAPI) {
 
-	admin := routes.Group("/admin",  middleware.IsAuthenticated)
+	admin := routes.Group("/admin",  mdl.IsAuthenticated, mdl.IsAdmin)
 	{
 		// Kategori Route
 

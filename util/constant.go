@@ -10,3 +10,4 @@ const SEEDS string = "seed"
 
 // Role
 const MIKRO_USER string = "MIKRO_USER"
+const MIKRO_ADMIN string = "MIKRO_ADMIN"

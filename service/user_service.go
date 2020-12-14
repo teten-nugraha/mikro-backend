@@ -73,10 +73,13 @@ func (u *UserService) CheckLogin(username, password string) (bool, error) {
 
 func (u *UserService) GenerateToken(username string) (string, error) {
 
+	user := u.UserRepository.FindByUsername(username)
+
 	token := jwt.New(jwt.SigningMethodHS256)
 
 	claims := token.Claims.(jwt.MapClaims)
-	claims["username"] = username
+	claims["username"] = user.Username
+	claims["role"] = user.Role
 	claims["level"] = "application"
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
