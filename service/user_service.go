@@ -80,7 +80,7 @@ func (u *UserService) GenerateToken(username string) (string, error) {
 	claims["level"] = "application"
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
-	t, err := token.SignedString([]byte("secret"))
+	t, err := token.SignedString([]byte(util.SECRET))
 
 	return t, err
 
