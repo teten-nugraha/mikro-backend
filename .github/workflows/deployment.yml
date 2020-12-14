@@ -28,7 +28,7 @@ jobs:
       - name: Check List Project
         run: ls -ll
         
-      - name: Building
+      - name: Building MikroApp Backend
         run: |
           go mod download
           go build .
