@@ -55,7 +55,7 @@ func (p *AuthAPI) CheckLogin(c echo.Context) error {
 	form := new(dto.LoginDTO)
 	c.Bind(form)
 	if err := c.Validate(form); err != nil {
-		return err
+		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
 
 	username := c.FormValue("username")

@@ -24,6 +24,7 @@ func Init(arg []string) *echo.Echo {
 
 	userAPI := injection.InitUserAPI(db)
 	authAPI := injection.InitAuthAPI(db)
+	kategoriAPI := injection.InitKategoriAPI(db)
 
 	routes := echo.New()
 
@@ -49,13 +50,10 @@ func Init(arg []string) *echo.Echo {
 	// User Route
 	routes.GET("/users/:id", userAPI.FindById)
 
-	// auth route
-	auth := routes.Group("/auth")
-	{
-		auth.GET("/generate-hash/:password", authAPI.GenerateHashPassword)
-		auth.POST("/login", authAPI.CheckLogin)
-		auth.POST("/signup", authAPI.SignUp)
-	}
+	AuthRoute(routes, authAPI)
+	AdminRoute(routes, kategoriAPI)
 
 	return routes
 }
+
+
