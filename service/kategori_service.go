@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"github.com/teten-nugraha/mikro-backend/domain"
 	"github.com/teten-nugraha/mikro-backend/dto"
 	"github.com/teten-nugraha/mikro-backend/mapper"
@@ -48,6 +49,10 @@ func (k *KategoryService) SaveOrUpdate(dto dto.KategoriDTO) (dto.KategoriDTO, er
 func (k *KategoryService) DeleteKategori(uuid string) error {
 
 	kategori := k.KategoriRepository.FindById(uuid)
+
+	if(kategori == (domain.Kategori{})) {
+		return errors.New("Data Not Found")
+	}
 
 	err := k.KategoriRepository.DeleteKategori(kategori)
 	if err != nil {
