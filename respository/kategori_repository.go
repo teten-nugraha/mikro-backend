@@ -12,6 +12,7 @@ type KategoriRepositoryContract interface {
 	FindById(id string) domain.Kategori
 	FindByNama(nama string) domain.Kategori
 	SaveOrUpdate(dto dto.KategoriDTO) domain.Kategori
+	DeleteKategori(kategori domain.Kategori) error
 }
 
 type KategoriRepository struct {
@@ -55,4 +56,13 @@ func (k *KategoriRepository) SaveOrUpdate(dto dto.KategoriDTO) (domain.Kategori,
 	}
 
 	return kategori, nil
+}
+
+func (k *KategoriRepository) DeleteKategori(kategori domain.Kategori) error {
+
+	if err := k.DB.Delete(&kategori).Error; err != nil {
+		return err
+	}
+
+	return nil
 }

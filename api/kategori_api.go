@@ -62,3 +62,14 @@ func (k *KategoriAPI) SaveOrUpdate(c echo.Context) error {
 
 	return SuccessResponse(c, http.StatusOK, res)
 }
+
+func (k *KategoriAPI) DeleteKategori(c echo.Context) error{
+	id := c.Param("id")
+
+	err := k.KategoriService.DeleteKategori(id)
+	if err != nil {
+		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return SuccessResponse(c, http.StatusOK, "Delete Success")
+}

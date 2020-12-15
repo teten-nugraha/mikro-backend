@@ -12,6 +12,7 @@ type KategoriServiceContract interface {
 	FindById(id string) domain.Kategori
 	FindByNama(nama string) domain.Kategori
 	SaveOrUpdate(dto dto.KategoriDTO) (dto.KategoriDTO, error)
+	DeleteKategori(uuid string) error
 }
 
 type KategoryService struct {
@@ -41,5 +42,18 @@ func (k *KategoryService) SaveOrUpdate(dto dto.KategoriDTO) (dto.KategoriDTO, er
 	kategori, err := k.KategoriRepository.SaveOrUpdate(dto)
 
 	return mapper.ToKategoriDTO(kategori), err
+
+}
+
+func (k *KategoryService) DeleteKategori(uuid string) error {
+
+	kategori := k.KategoriRepository.FindById(uuid)
+
+	err := k.KategoriRepository.DeleteKategori(kategori)
+	if err != nil {
+		return err
+	}
+
+	return nil
 
 }
