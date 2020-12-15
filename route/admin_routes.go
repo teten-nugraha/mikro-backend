@@ -12,9 +12,11 @@ func AdminRoute(routes *echo.Echo, kategoriAPI api.KategoriAPI) {
 	{
 		// Kategori Route
 
+		admin.GET("/kategoris", kategoriAPI.FindAll)
 		admin.POST("/kategori", kategoriAPI.SaveOrUpdate)
 		admin.GET("/kategori/:id", kategoriAPI.FindById)
 		admin.GET("/kategori/findByNama", kategoriAPI.FindByName)
+		admin.DELETE("/kategori/:id", kategoriAPI.DeleteKategori)
 	}
 
 }
