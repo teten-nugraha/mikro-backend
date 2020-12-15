@@ -5,6 +5,7 @@ import (
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/sirupsen/logrus"
+	"github.com/teten-nugraha/mikro-backend/domain"
 	"github.com/teten-nugraha/mikro-backend/dto"
 	"github.com/teten-nugraha/mikro-backend/helpers"
 	"github.com/teten-nugraha/mikro-backend/mapper"
@@ -54,26 +55,31 @@ func (u *UserService) FindById(id uint) dto.UserDTO {
 	return mapper.ToUserDTO(u.UserRepository.FindById(id))
 }
 
-func (u *UserService) FindByUsername(username string) dto.UserDTO {
-	return mapper.ToUserDTO(u.UserRepository.FindByUsername(username))
+func (u *UserService) FindByUsername(username string) (dto.UserDTO, error) {
+	user, err := u.UserRepository.FindByUsername(username)
+	if err != nil {
+		return mapper.ToUserDTO(user), err
+	}
+	return mapper.ToUserDTO(user), nil
 }
 
-func (u *UserService) CheckLogin(username, password string) (bool, error) {
+func (u *UserService) CheckLogin(username, password string) (domain.User, error) {
+	user, err := u.UserRepository.FindByUsername(username)
 
-	user := u.UserRepository.FindByUsername(username)
+	if err != nil {
+		return user, err
+	}
 
 	match, err := helpers.CheckPasswordHash(password, user.Password)
 	if !match {
 		logrus.Warn("Hash and Password doesnt match")
-		return false, err
+		return user, err
 	}
 
-	return true, nil
+	return user, nil
 }
 
-func (u *UserService) GenerateToken(username string) (string, error) {
-
-	user := u.UserRepository.FindByUsername(username)
+func (u *UserService) GenerateToken(user domain.User) (string, error) {
 
 	token := jwt.New(jwt.SigningMethodHS256)
 

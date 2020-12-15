@@ -58,24 +58,15 @@ func (p *AuthAPI) CheckLogin(c echo.Context) error {
 		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
 	}
 
-	username := c.FormValue("username")
-	password := c.FormValue("password")
+	username := form.Username
+	password := form.Password
 
-	res, err := p.UserService.CheckLogin(username, password)
+	user, err := p.UserService.CheckLogin(username, password)
 	if err != nil {
-
-		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
+		return ErrorResponse(c, http.StatusOK, err.Error())
 	}
 
-	if !res {
-		return ErrorResponse(c, http.StatusUnauthorized, "Unauthorized")
-	}
-
-	t, err := p.UserService.GenerateToken(username)
-
-	if err != nil {
-		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
-	}
+	t, _ := p.UserService.GenerateToken(user)
 
 	return SuccessResponse(c, http.StatusOK, map[string]string{
 		"token": t,
