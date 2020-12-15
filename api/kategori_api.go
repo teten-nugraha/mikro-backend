@@ -15,6 +15,17 @@ func ProviderKategoryAPI(k service.KategoryService) KategoriAPI {
 	return KategoriAPI{KategoriService: k}
 }
 
+func (k *KategoriAPI) FindAll(e echo.Context) error {
+	kategoris := k.KategoriService.FindAll()
+
+	if(len(kategoris) > 0) {
+		return SuccessResponse(e, http.StatusOK, kategoris)
+	}
+
+	return SuccessResponse(e, http.StatusNoContent, kategoris)
+
+}
+
 func (k *KategoriAPI) FindById(e echo.Context) error {
 	id := e.Param("id")
 
@@ -50,4 +61,15 @@ func (k *KategoriAPI) SaveOrUpdate(c echo.Context) error {
 	}
 
 	return SuccessResponse(c, http.StatusOK, res)
+}
+
+func (k *KategoriAPI) DeleteKategori(c echo.Context) error{
+	id := c.Param("id")
+
+	err := k.KategoriService.DeleteKategori(id)
+	if err != nil {
+		return ErrorResponse(c, http.StatusInternalServerError, err.Error())
+	}
+
+	return SuccessResponse(c, http.StatusOK, "Delete Success")
 }

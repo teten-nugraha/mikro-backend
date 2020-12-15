@@ -1,6 +1,7 @@
 package service
 
 import (
+	"errors"
 	"github.com/teten-nugraha/mikro-backend/domain"
 	"github.com/teten-nugraha/mikro-backend/dto"
 	"github.com/teten-nugraha/mikro-backend/mapper"
@@ -8,9 +9,11 @@ import (
 )
 
 type KategoriServiceContract interface {
+	FindAll() []dto.KategoriDTO
 	FindById(id string) domain.Kategori
 	FindByNama(nama string) domain.Kategori
 	SaveOrUpdate(dto dto.KategoriDTO) (dto.KategoriDTO, error)
+	DeleteKategori(uuid string) error
 }
 
 type KategoryService struct {
@@ -21,6 +24,10 @@ func ProviderKategoriService(k respository.KategoriRepository) KategoryService {
 	return KategoryService{
 		KategoriRepository: k,
 	}
+}
+
+func (k *KategoryService) FindAll() []dto.KategoriDTO {
+	return mapper.ToKategoriListDTO(k.KategoriRepository.FindAll())
 }
 
 func (k *KategoryService) FindById(id string) dto.KategoriDTO {
@@ -36,5 +43,22 @@ func (k *KategoryService) SaveOrUpdate(dto dto.KategoriDTO) (dto.KategoriDTO, er
 	kategori, err := k.KategoriRepository.SaveOrUpdate(dto)
 
 	return mapper.ToKategoriDTO(kategori), err
+
+}
+
+func (k *KategoryService) DeleteKategori(uuid string) error {
+
+	kategori := k.KategoriRepository.FindById(uuid)
+
+	if(kategori == (domain.Kategori{})) {
+		return errors.New("Data Not Found")
+	}
+
+	err := k.KategoriRepository.DeleteKategori(kategori)
+	if err != nil {
+		return err
+	}
+
+	return nil
 
 }
