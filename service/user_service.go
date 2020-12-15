@@ -86,6 +86,7 @@ func (u *UserService) GenerateToken(user domain.User) (string, error) {
 	claims := token.Claims.(jwt.MapClaims)
 	claims["username"] = user.Username
 	claims["role"] = user.Role
+	claims["fullname"] = user.Fullname
 	claims["level"] = "application"
 	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 

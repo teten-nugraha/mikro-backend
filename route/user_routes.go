@@ -12,5 +12,5 @@ func UserRoute(routes *echo.Echo, userAPI api.UserAPI) {
 	// auth route
 	user := routes.Group("/user")
 	user.Use(middleware.JWT([]byte(util.SECRET)))
-	user.GET("/authenticated", userAPI.FindById)
+	user.GET("/authenticated", userAPI.Authenticated)
 }
