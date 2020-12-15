@@ -15,6 +15,17 @@ func ProviderKategoryAPI(k service.KategoryService) KategoriAPI {
 	return KategoriAPI{KategoriService: k}
 }
 
+func (k *KategoriAPI) FindAll(e echo.Context) error {
+	kategoris := k.KategoriService.FindAll()
+
+	if(len(kategoris) > 0) {
+		return SuccessResponse(e, http.StatusOK, kategoris)
+	}
+
+	return SuccessResponse(e, http.StatusNoContent, kategoris)
+
+}
+
 func (k *KategoriAPI) FindById(e echo.Context) error {
 	id := e.Param("id")
 

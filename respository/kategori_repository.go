@@ -8,6 +8,7 @@ import (
 )
 
 type KategoriRepositoryContract interface {
+	FindAll() [] domain.Kategori
 	FindById(id string) domain.Kategori
 	FindByNama(nama string) domain.Kategori
 	SaveOrUpdate(dto dto.KategoriDTO) domain.Kategori
@@ -19,6 +20,14 @@ type KategoriRepository struct {
 
 func ProviderKategoriRepository(DB *gorm.DB) KategoriRepository {
 	return KategoriRepository{DB: DB}
+}
+
+func (k *KategoriRepository) FindAll() [] domain.Kategori {
+	var kategoris []domain.Kategori
+
+	k.DB.Find(&kategoris)
+
+	return kategoris
 }
 
 func (k *KategoriRepository) FindById(id string) domain.Kategori {

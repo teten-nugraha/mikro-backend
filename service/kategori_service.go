@@ -8,6 +8,7 @@ import (
 )
 
 type KategoriServiceContract interface {
+	FindAll() []dto.KategoriDTO
 	FindById(id string) domain.Kategori
 	FindByNama(nama string) domain.Kategori
 	SaveOrUpdate(dto dto.KategoriDTO) (dto.KategoriDTO, error)
@@ -21,6 +22,10 @@ func ProviderKategoriService(k respository.KategoriRepository) KategoryService {
 	return KategoryService{
 		KategoriRepository: k,
 	}
+}
+
+func (k *KategoryService) FindAll() []dto.KategoriDTO {
+	return mapper.ToKategoriListDTO(k.KategoriRepository.FindAll())
 }
 
 func (k *KategoryService) FindById(id string) dto.KategoriDTO {

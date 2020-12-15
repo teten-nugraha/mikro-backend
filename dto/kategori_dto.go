@@ -1,5 +1,8 @@
 package dto
 
+import uuid "github.com/satori/go.uuid"
+
 type KategoriDTO struct {
-	Kategori string `json:"kategori" validate:"required"`
+	ID       uuid.UUID `json:"id,string,omitempty"`
+	Kategori string    `json:"kategori" validate:"required"`
 }
