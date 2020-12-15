@@ -41,11 +41,13 @@ func (u *UserRepository) FindById(id uint) domain.User {
 	return user
 }
 
-func (u *UserRepository) FindByUsername(username string) domain.User {
+func (u *UserRepository) FindByUsername(username string) (domain.User, error) {
 	var user domain.User
-	u.DB.Where("username = ?", username).Find(&user)
+	if err := u.DB.First(&user, "username=?", username).Error; err != nil {
+		return user, err
+	}
 
-	return user
+	return user, nil
 }
 
 func (u *UserRepository) SaveOrUpdate(signupDto dto.SignupDTO) (domain.User, error) {

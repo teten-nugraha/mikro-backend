@@ -52,8 +52,7 @@ func Init(arg []string) *echo.Echo {
 
 	AuthRoute(routes, authAPI)
 	AdminRoute(routes, kategoriAPI)
+	UserRoute(routes, userAPI)
 
 	return routes
 }
-
-
