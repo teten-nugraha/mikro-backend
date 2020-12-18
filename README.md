@@ -110,7 +110,7 @@ Lakukan langkah-langkah berikut untuk dapat berkontrobusi dalam repo ini :
 
 ## Community Contributions Guide
 
-Untuk lebih lanjut silahkan hubungi teten.nugraha18@gmail.com
+Untuk lebih lanjut silahkan hubungi teten.nugraha18@gmail.com atau ke twitter @ten_nugraha
 
 
 
